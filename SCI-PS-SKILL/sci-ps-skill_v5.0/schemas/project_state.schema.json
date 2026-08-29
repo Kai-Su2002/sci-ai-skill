@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "skill_version",
+    "state",
+    "next_action"
+  ],
+  "properties": {
+    "skill_version": {
+      "type": "string"
+    },
+    "state": {
+      "enum": ["CAPABILITY_PRECHECK","CAPABILITY_BOOTSTRAP","PROJECT_INIT","UNIVERSAL_IMAGE2_WEB_HANDOFF","WAIT_IMAGE2_HANDOFF","COMPONENT_PACKAGE_VALIDATION","PHOTOSHOP_BUILD_PRECHECK","PHOTOSHOP_REAL_BUILD","BUILD_QA","TRANSPARENT_ASSET_EXPORT","USER_REVIEW","REVISION","FINAL_EXPORT","DONE"]
+    },
+    "state_status": {"enum": ["PENDING","PASS","BLOCKED","PAUSED","WAITING_USER","COMPLETE"]},
+    "next_action": {
+      "type": "string"
+    },
+    "web_handoff_prepared": {
+      "type": "boolean"
+    },
+    "component_handoff_validated": {
+      "type": "boolean"
+    },
+    "final_visual_match": {
+      "type": "boolean"
+    },
+    "final_user_directed_result": {
+      "type": "boolean"
+    },
+    "transparent_asset_library_validated": {
+      "type": "boolean"
+    },
+    "reference_production_route": {
+      "type": "object"
+    },
+    "revision_policy": {
+      "type": "object"
+    },
+    "processed_commands": {
+      "type": "object"
+    },
+    "photoshop_build": {
+      "type": "object",
+      "properties": {
+        "verified_layer_count": {"type": "integer", "minimum": 0},
+        "verified_component_placement_count": {"type": "integer", "minimum": 0},
+        "no_progress_cycles": {"type": "integer", "minimum": 0},
+        "last_photoshop_state_hash": {"type": ["string","null"]}
+      }
+    }
+  }
+}

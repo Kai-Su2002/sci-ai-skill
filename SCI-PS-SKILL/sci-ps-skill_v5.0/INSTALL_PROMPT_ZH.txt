@@ -1,0 +1,17 @@
+请安装并启用我上传的 `sci-ps-skill_v5.0.zip`，把它作为一个**完整、自包含、单入口**的 Sci PS skill 使用。
+
+严格要求：
+1. 不要要求我额外上传 Workflow Pack、单独的 MD、schema 或脚本；本 ZIP 已包含全部固定资源。
+2. 安装后先读取根目录 `SKILL.md`、`AGENTS.md` 和 `references/state_machine.md`。
+3. 立即执行首次 `CAPABILITY_PRECHECK`：检查当前本地 Codex 项目是否具备 Photoshop MCP Background Control 能力。
+4. 只有真实工具清单、`ps_health` 和 production canary 对临时文档、图层组、智能对象、变换、文字、原生蒙版、JSX、高级视觉效果、PNG 导出、PSD 保存、哈希验证和安全关闭全部通过，才记录 `CAPABILITY_PRECHECK = PASS`；旧版工具集不得直接放行。
+5. 项目字体只能从带许可证、来源 URL 和 SHA-256 的已验证组件包读取；必须先展示给用户并获得明确同意，才能执行用户级字体安装，随后重启/刷新 Photoshop 并验证 PostScript 名称。
+6. 如果不具备：自动进入 `CAPABILITY_BOOTSTRAP`，优先复用包内 `bootstrap/photoshop_mcp/` 的预定路线，引导我一步一步完成；需要我重启 Codex 时，保存 checkpoint，并明确告诉我重启后只需要回复“继续”。
+7. 全程禁止把 Computer Use 当成正式 Photoshop 生产通道。
+8. 安装/能力检查完成后，告诉我：
+   - 当前能力状态；
+   - 已完成什么；
+   - 是否需要我做任何手动动作；
+   - 如果已就绪，告诉我以后只需要说“开始一个新的高保真复刻项目”。
+
+现在开始执行安装与首次能力预检。

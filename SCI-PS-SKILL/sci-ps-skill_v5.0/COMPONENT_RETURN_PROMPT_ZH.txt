@@ -1,0 +1,15 @@
+组件包已放入。
+
+请自动读取当前项目 `02_component_handoff/INBOX/COMPONENT_HANDOFF.zip`，严格执行组件包完整性、唯一命名、PNG 解码、有效 Alpha、唯一 manifest、批次完成状态、组件 ID 一致性、source_content_bbox/target_bbox、Photoshop 原生元素、交接文档和 `PHOTOSHOP_RECONSTRUCTION_MASTER_PROMPT_ZH.md` 完整性检查。不得因为素材 PNG 没有保持参考图完整画布、原位置或原尺度而判定失败。
+
+如果通过：
+- 自动提取到 VALIDATED；
+- 更新 project_state；
+- 读取项目专用 Photoshop 主提示词，并据此明确自底向上的图层顺序、逐层隔离对比、相邻层融合和三层级最终验收；
+- 生成/校验 Photoshop build manifest；
+- 重新执行严格生产能力预检，不得只确认 `ps_health`；
+- 生成 build manifest 和 MCP action queue；
+- 只有工具清单、导出、高级编辑能力全部满足后，才进入真实 Photoshop 图层构建。
+
+如果失败：
+只报告具体缺失/不合格组件和我该回 Image2 修什么，不要进入 Photoshop。

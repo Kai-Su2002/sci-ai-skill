@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "canvas",
+    "layers"
+  ],
+  "properties": {
+    "canvas": {
+      "type": "object"
+    },
+    "font_assets": {"type": "array"},
+    "layers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["layer_id", "layer_type", "group", "name", "verification_required"],
+        "properties": {
+          "layer_id": {"type": "string"},
+          "layer_type": {"enum": ["reference", "reference_extraction", "photoshop_native", "component"]},
+          "group": {"type": "string"},
+          "name": {"type": "string"},
+          "verification_required": {"type": "boolean"},
+          "placement_expected_bounds": {
+            "type": "array",
+            "prefixItems": [{"type": "number"}, {"type": "number"}, {"type": "number"}, {"type": "number"}],
+            "minItems": 4,
+            "maxItems": 4
+          },
+          "source_pixel_size": {
+            "type": "array", "prefixItems": [{"type":"number"},{"type":"number"}], "minItems": 2, "maxItems": 2
+          },
+          "tool_target_layer_bounds": {
+            "type": "array",
+            "prefixItems": [{"type":"number"},{"type":"number"},{"type":"number"},{"type":"number"}],
+            "minItems": 4, "maxItems": 4
+          },
+          "transform_plan": {
+            "type": "object",
+            "required": ["scale_mode", "scale_x", "scale_y", "translate_x", "translate_y"],
+            "properties": {
+              "scale_mode": {"enum": ["UNIFORM_FIT_TARGET_BBOX", "FREE_TRANSFORM_TO_TARGET"]},
+              "scale_x": {"type": "number", "exclusiveMinimum": 0},
+              "scale_y": {"type": "number", "exclusiveMinimum": 0},
+              "translate_x": {"type": "number"},
+              "translate_y": {"type": "number"}
+              ,"rotation": {"type": "number"}, "skew_x": {"type": "number"}, "skew_y": {"type": "number"},
+              "perspective_x": {"type": "number"}, "perspective_y": {"type": "number"}
+            }
+          },
+          "import_mode": {"enum": ["SMART_OBJECT", "REFERENCE_ONLY"]},
+          "mask_plan": {"type": "object"},
+          "source_provenance": {"type": "object"}
+          ,"extraction_spec": {"type": "object"}
+        }
+      }
+    }
+  }
+}

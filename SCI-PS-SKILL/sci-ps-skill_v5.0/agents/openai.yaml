@@ -1,0 +1,7 @@
+interface:
+  display_name: "Sci PS skill"
+  short_description: "高保真拆解并在 Photoshop 中逐层复刻参考图"
+  default_prompt: "使用 $sci-ps-skill 开始一个新的高保真 Photoshop 复刻项目。"
+
+policy:
+  allow_implicit_invocation: true

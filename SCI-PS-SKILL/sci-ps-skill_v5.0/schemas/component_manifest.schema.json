@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["image_type", "content_semantic_lock", "user_semantic_confirmation", "semantic_confirmation_evidence", "components", "photoshop_reference_extractions", "photoshop_native_elements"],
+  "properties": {
+    "image_type": {"type": "string", "minLength": 1},
+    "content_semantic_lock": {"const": true},
+    "user_semantic_confirmation": {"const": true},
+    "semantic_confirmation_evidence": {
+      "type": "object",
+      "required": ["user_response", "confirmed_after_analysis"],
+      "properties": {
+        "user_response": {"type": "string", "minLength": 1},
+        "confirmed_after_analysis": {"const": true}
+      }
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["component_id", "name", "file_name", "batch", "status", "photoshop_target_group", "canvas_mode", "target_bbox", "transparent", "alpha_verified", "allow_scale", "allow_warp", "hidden_region_completed", "reconstruction_confidence", "source_provenance"],
+        "properties": {
+          "component_id": {"type": "string", "minLength": 1},
+          "name": {"type": "string"},
+          "file_name": {"type": "string", "pattern": "^[^/\\\\]+\\.png$"},
+          "batch": {"type": ["integer", "string"]},
+          "status": {"const": "APPROVED"},
+          "photoshop_target_group": {"type": "string", "minLength": 1},
+          "canvas_mode": {"const": "ASSET_CROP"},
+          "source_content_bbox": {
+            "type": "array",
+            "prefixItems": [{"type": "number"}, {"type": "number"}, {"type": "number"}, {"type": "number"}],
+            "minItems": 4,
+            "maxItems": 4
+          },
+          "target_bbox": {
+            "type": "array",
+            "prefixItems": [{"type": "number"}, {"type": "number"}, {"type": "number"}, {"type": "number"}],
+            "minItems": 4,
+            "maxItems": 4
+          },
+          "transparent": {"const": true},
+          "alpha_verified": {"const": true},
+          "allow_scale": {"const": true},
+          "allow_warp": {"type": "boolean"},
+          "hidden_region_completed": {"type": "boolean"},
+          "reconstruction_confidence": {"type": ["number", "string"]}
+          ,"rasterized_text_or_logo": {"type": "boolean"}
+          ,"editable_text": {"type": "boolean"}
+          ,"literal_text": {"type": "string"}
+          ,"rasterization_user_confirmation": {"type": "string", "minLength": 1}
+          ,"source_provenance": {
+            "type": "object",
+            "required": ["mode", "exact_source_available"],
+            "properties": {
+              "mode": {"enum": ["USER_SUPPLIED_EXACT", "LICENSED_EXACT", "DETERMINISTIC_EXTRACTION", "IMAGE2_RECONSTRUCTION"]},
+              "exact_source_available": {"type": "boolean"},
+              "source_file": {"type": "string"},
+              "source_sha256": {"type": "string", "pattern": "^[0-9a-fA-F]{64}$"},
+              "license_or_permission_note": {"type": "string"},
+              "fallback_reason": {"type": "string"}
+            },
+            "allOf": [
+              {"if": {"properties": {"mode": {"const": "IMAGE2_RECONSTRUCTION"}}}, "then": {"required": ["fallback_reason"]}},
+              {"if": {"properties": {"exact_source_available": {"const": true}}}, "then": {"required": ["source_sha256"]}}
+            ]
+          },
+          "transform": {
+            "type": "object",
+            "properties": {
+              "rotation": {"type": "number"}, "skew_x": {"type": "number"}, "skew_y": {"type": "number"},
+              "perspective_x": {"type": "number"}, "perspective_y": {"type": "number"}
+            }
+          },
+          "mask": {
+            "type": "object",
+            "required": ["enabled", "feather", "density", "invert"],
+            "properties": {
+              "enabled": {"type": "boolean"}, "file_name": {"type": "string", "pattern": "^[^/\\\\]+\\.png$"},
+              "feather": {"type": "number", "minimum": 0}, "density": {"type": "number", "minimum": 0, "maximum": 100}, "invert": {"type": "boolean"}
+            }
+          }
+        }
+      }
+    },
+    "photoshop_reference_extractions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "photoshop_target_group", "status", "target_bbox", "extraction_method", "path_points", "edge_treatment", "eligibility", "fallback_route", "source_provenance"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "name": {"type": "string", "minLength": 1},
+          "photoshop_target_group": {"type": "string", "minLength": 1},
+          "status": {"const": "APPROVED"},
+          "target_bbox": {"type": "array", "prefixItems": [{"type":"number"},{"type":"number"},{"type":"number"},{"type":"number"}], "minItems": 4, "maxItems": 4},
+          "extraction_method": {"const": "PEN_PATH_POLYGON"},
+          "path_points": {"type": "array", "minItems": 3, "items": {"type": "array", "prefixItems": [{"type":"number"},{"type":"number"}], "minItems": 2, "maxItems": 2}},
+          "edge_treatment": {"type": "object", "required": ["feather_px", "contract_px", "defringe_px"], "properties": {"feather_px":{"type":"number","minimum":0,"maximum":20}, "contract_px":{"type":"number","minimum":0,"maximum":20}, "defringe_px":{"type":"number","minimum":0,"maximum":20}}},
+          "eligibility": {"type": "object", "required": ["complete_contour_visible", "materially_unoccluded", "sufficient_resolution", "background_separable", "no_neighbor_contamination", "evidence"], "properties": {"complete_contour_visible":{"const":true}, "materially_unoccluded":{"const":true}, "sufficient_resolution":{"const":true}, "background_separable":{"const":true}, "no_neighbor_contamination":{"const":true}, "evidence":{"type":"string","minLength":1}}},
+          "fallback_route": {"enum": ["IMAGE2_RECONSTRUCTION", "PHOTOSHOP_NATIVE"]},
+          "rasterized_text_or_logo": {"type":"boolean"},
+          "editable_text": {"type":"boolean"},
+          "literal_text": {"type":"string"},
+          "rasterization_user_confirmation": {"type":"string","minLength":1},
+          "source_provenance": {"type":"object", "required":["mode","exact_source_available","source_sha256"], "properties":{"mode":{"const":"REFERENCE_EXTRACTION"},"exact_source_available":{"const":true},"source_file":{"type":"string"},"source_sha256":{"type":"string","pattern":"^[0-9a-fA-F]{64}$"}}}
+        }
+      }
+    },
+    "photoshop_native_elements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "type", "name", "photoshop_target_group", "build_spec"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "type": {"enum": ["TEXT","RECTANGLE","ELLIPSE","LINE","ARROW","CURVED_ARROW","SOLID_BACKGROUND","GLOW","SHADOW","BLUR","GRADIENT_LINEAR","GRADIENT_RADIAL","ADJUSTMENT_LEVELS","ADJUSTMENT_HUE_SATURATION","ADJUSTMENT_BRIGHTNESS_CONTRAST","COMPLEX_PATH","VECTOR_SHAPE"]},
+          "name": {"type": "string", "minLength": 1},
+          "description": {"type": "string"},
+          "photoshop_target_group": {"type": "string", "minLength": 1},
+          "build_spec": {
+            "type": "object",
+            "required": ["bbox", "opacity", "blend_mode", "parameters"],
+            "properties": {
+              "bbox": {"type":"array","prefixItems":[{"type":"number"},{"type":"number"},{"type":"number"},{"type":"number"}],"minItems":4,"maxItems":4},
+              "opacity": {"type":"number","minimum":0,"maximum":100},
+              "blend_mode": {"type":"string","minLength":1},
+              "parameters": {"type":"object"}
+            }
+          }
+        }
+      }
+    },
+    "font_assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["font_id", "file_name", "license_file", "family_name", "postscript_name", "source_url", "license_name", "sha256", "user_approved_download", "user_approval_quote"],
+        "properties": {
+          "font_id": {"type": "string", "minLength": 1},
+          "file_name": {"type": "string", "pattern": "^[^/\\\\]+\\.(ttf|otf)$"},
+          "license_file": {"type": "string", "pattern": "^[^/\\\\]+\\.(txt|md|pdf)$"},
+          "family_name": {"type": "string", "minLength": 1},
+          "postscript_name": {"type": "string", "minLength": 1},
+          "source_url": {"type": "string", "pattern": "^https://"},
+          "license_name": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^[0-9a-fA-F]{64}$"},
+          "user_approved_download": {"const": true},
+          "user_approval_quote": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  },
+  "anyOf": [
+    {"properties": {"components": {"minItems": 1}}},
+    {"properties": {"photoshop_reference_extractions": {"minItems": 1}}},
+    {"properties": {"photoshop_native_elements": {"minItems": 1}}}
+  ]
+}

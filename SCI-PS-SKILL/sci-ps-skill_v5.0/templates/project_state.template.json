@@ -1,0 +1,33 @@
+{
+  "skill_version": "5.0",
+  "project_name": "",
+  "state": "CAPABILITY_PRECHECK",
+  "state_status": "PENDING",
+  "last_completed_state": null,
+  "next_action": "RUN_STRICT_CAPABILITY_PRECHECK",
+  "capability": {},
+  "web_handoff_prepared": false,
+  "component_handoff_validated": false,
+  "final_visual_match": false,
+  "final_user_directed_result": false,
+  "transparent_asset_library_validated": false,
+  "reference_production_route": {
+    "dominant_style": "UNCLASSIFIED",
+    "vector_tool_asked": false,
+    "vector_tool_available": false,
+    "fallback_for_non_native_elements": "IMAGE2"
+  },
+  "revision_policy": {
+    "locked_categories": [],
+    "deferred_categories": [],
+    "active_scope": null
+  },
+  "processed_commands": {},
+  "photoshop_build": {
+    "verified_layer_count": 0,
+    "verified_component_placement_count": 0,
+    "no_progress_cycles": 0,
+    "last_photoshop_state_hash": null
+  },
+  "checkpoints": []
+}

@@ -1,0 +1,17 @@
+{
+  "normal_overlay_checked": false,
+  "difference_checked": false,
+  "target_size_checked": false,
+  "zoom_100_checked": false,
+  "zoom_200_400_checked": false,
+  "reference_overlay_hidden": false,
+  "pixel_evidence_sha256": "",
+  "tolerance_approved_by_user": false,
+  "tolerance_approval_quote": "",
+  "mismatches": [],
+  "final_visual_match": false,
+  "final_user_directed_result": false,
+  "user_directed_approval_quote": "",
+  "approved_deviation_scope": "",
+  "review_summary": ""
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["normal_overlay_checked", "difference_checked", "target_size_checked", "zoom_100_checked", "zoom_200_400_checked", "reference_overlay_hidden", "pixel_evidence_sha256", "mismatches", "final_visual_match", "final_user_directed_result", "review_summary"],
+  "properties": {
+    "normal_overlay_checked": {"const": true},
+    "difference_checked": {"const": true},
+    "target_size_checked": {"const": true},
+    "zoom_100_checked": {"const": true},
+    "zoom_200_400_checked": {"const": true},
+    "reference_overlay_hidden": {"const": true},
+    "pixel_evidence_sha256": {"type": "string", "pattern": "^[0-9a-fA-F]{64}$"},
+    "tolerance_approved_by_user": {"type": "boolean"},
+    "tolerance_approval_quote": {"type": "string"},
+    "mismatches": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "category", "description", "correction", "status"],
+        "properties": {
+          "id": {"type": "string"},
+          "category": {"type": "string"},
+          "description": {"type": "string"},
+          "correction": {"type": "string"},
+          "status": {"const": "RESOLVED"}
+        }
+      }
+    },
+    "final_visual_match": {"type": "boolean"},
+    "final_user_directed_result": {"type": "boolean"},
+    "user_directed_approval_quote": {"type": "string"},
+    "approved_deviation_scope": {"type": "string"},
+    "review_summary": {"type": "string", "minLength": 1}
+  },
+  "oneOf": [
+    {"properties": {"final_visual_match": {"const": false}, "final_user_directed_result": {"const": false}}},
+    {"properties": {"final_visual_match": {"const": true}, "final_user_directed_result": {"const": false}}},
+    {"properties": {"final_visual_match": {"const": false}, "final_user_directed_result": {"const": true}, "user_directed_approval_quote": {"minLength": 1}, "approved_deviation_scope": {"minLength": 1}}, "required": ["user_directed_approval_quote", "approved_deviation_scope"]}
+  ]
+}

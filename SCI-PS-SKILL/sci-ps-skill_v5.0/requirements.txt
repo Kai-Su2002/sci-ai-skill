@@ -1,0 +1,4 @@
+Pillow
+jsonschema
+mcp>=1.9,<2
+pywin32; platform_system == "Windows"

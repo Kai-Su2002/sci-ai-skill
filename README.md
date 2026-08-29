@@ -4,8 +4,7 @@
 > 从参考图分析、组件拆解与生成，到 Photoshop 逐层重建、终审 QA 与透明元素交付的一套科研绘图自动化工作流。
 
 **Version:** 5.0  
-**Manual:** 2026-08-29  
-**License:** Proprietary / Source-Available — Authorization Required
+
 
 ---
 
@@ -854,10 +853,7 @@ Unless you have obtained prior written authorization from the copyright holder, 
 
 Without authorization, you may not:
 
-- use the Skill in production
-- redistribute it
-- modify and redistribute it
-- repackage it
+
 - sell it
 - provide it as a paid service
 - integrate it into commercial software
@@ -885,10 +881,7 @@ Please see the repository `LICENSE` file for the complete terms.
 
 未经版权所有者事先书面授权，不得：
 
-- 实际部署使用
-- 复制传播
-- 修改后二次发布
-- 重新打包
+
 - 出售
 - 商业化使用
 - 集成到其它软件

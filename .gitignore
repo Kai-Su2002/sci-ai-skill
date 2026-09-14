@@ -1,0 +1,4 @@
+.venv/
+.amp/portals/*
+__pycache__/
+*.py[cod]
